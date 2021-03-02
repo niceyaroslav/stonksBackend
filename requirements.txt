@@ -1,0 +1,7 @@
+Django
+gunicorn
+django-cors-headers
+django-heroku
+djangorestframework_simplejwt
+djangorestframework
+yfinance
