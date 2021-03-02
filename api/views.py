@@ -11,8 +11,8 @@ from api.serializers import TransactionSerializer
 
 class RegistrationApiView(APIView):
 
-    def post(self):
-        data = self.request.data
+    def post(self, request):
+        data = request.data
         User.objects.create_user(data.get('username'),
                                  data.get('email'),
                                  data.get('password'))
