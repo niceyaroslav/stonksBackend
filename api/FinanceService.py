@@ -1,9 +1,12 @@
-import yfinance as yf
 import datetime
 import dateutil.parser
+import yfinance as yf
 
 
 class AssetTracker:
+
+    def __init__(self):
+        pass
 
     @staticmethod
     def get_asset_info(asset):
@@ -41,10 +44,3 @@ class AssetTracker:
 
 asset_tracker = AssetTracker()
 
-# # bv = asset_tracker.get_asset_value_at_timepoint('XLM-EUR', '2021-01-14T16:30:00Z', float("120.45580487085738000000"))
-# # cv = asset_tracker.get_current_value_for_asset('XLM-EUR', 150)
-# # cp = asset_tracker.get_current_price('XLM-EUR')
-# # data = asset_tracker.get_asset_price_at_timepoint('XLM-EUR', start="2021-02-22T05:29:00Z")
-# # # fig = px.line(data, x=data.index, y='Close')
-# # # fig.show()
-# # inf = asset_tracker.get_asset_info('XLM-EUR')
