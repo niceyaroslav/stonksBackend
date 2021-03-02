@@ -1,15 +1,17 @@
 import yfinance as yf
-import plotly.express as px
 import datetime
 import dateutil.parser
 
 
 class AssetTracker:
 
-    now = datetime.datetime.now()
-
     @staticmethod
-    def get_asset_price_at_timepoint(asset, start):
+    def get_asset_info(asset):
+        ast = yf.Ticker(asset)
+        info = ast.info['description']
+        return info
+
+    def get_asset_price_at_timepoint(self, asset, start):
         t = dateutil.parser.parse(start)
         ast = yf.Ticker(asset)
         history = ast.history(start=t, end=t)
@@ -23,9 +25,18 @@ class AssetTracker:
         return self.get_asset_price_at_timepoint(asset, time) * aoc
 
     def get_current_price(self, asset):
+        now = datetime.datetime.now()
+        prev_hour = datetime.datetime.fromtimestamp(now.timestamp() - 3600)
         ast = yf.Ticker(asset)
-        cp = ast.history(start=self.now, end=self.now)
-        return cp['Close'][0]
+        cp = ast.history(start=prev_hour, end=now)
+        return self.get_close_value(cp)
+
+    @staticmethod
+    def get_close_value(history):
+        if 'Close' in history.columns and len(history['Close']) > 0:
+            return history['Close'][0]
+        else:
+            return 1
 
 
 asset_tracker = AssetTracker()
