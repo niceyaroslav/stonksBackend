@@ -15,7 +15,7 @@ Including another URLconf
 """
 
 from django.urls import path
-from api.views import RegistrationApiView, TransactionApiView, TransactionDetailsApiView, UserDataApiView
+from api.views import RegistrationApiView, TransactionApiView, TransactionDetailsApiView, UserDataApiView, YahooAPIView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -27,6 +27,6 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegistrationApiView.as_view(), name='register_user'),
     path('transactions/', TransactionApiView.as_view(), name='transactions'),
+    path('yahoo/', YahooAPIView.as_view(), name='yahoo'),
     path('transactions/<pk>/', TransactionDetailsApiView.as_view(), name='transaction_details')
-
 ]

@@ -1,6 +1,7 @@
 import datetime
 import dateutil.parser
 import yfinance as yf
+import requests
 
 
 class AssetTracker:
@@ -41,6 +42,7 @@ class AssetTracker:
         else:
             return 1
 
+    def get_asset_info(self, asset):
+        return requests.get('https://query1.finance.yahoo.com/v8/finance/chart/' + asset).json()
 
 asset_tracker = AssetTracker()
-
