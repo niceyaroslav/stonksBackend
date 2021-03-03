@@ -35,11 +35,9 @@ class TransactionApiView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = TransactionSerializer
 
-    def get_queryset(self):
-        return Transaction.objects.filter(user=self.request.user)
-
     def get(self, request, **kwargs):
-        data = self.get_serializer(self.get_queryset(), many=True).data
+        print(request.user)
+        data = self.get_serializer(Transaction.objects.filter(user=self.request.user), many=True).data
         for i in data:
             asset = i.get('asset')
             amount_crypto = i.get('amount_crypto')
