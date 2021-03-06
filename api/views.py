@@ -43,7 +43,11 @@ class TransactionApiView(ListCreateAPIView):
     serializer_class = TransactionSerializer
 
     def get_queryset(self):
-        return Transaction.objects.filter(user=self.request.user)
+        asset = self.request.GET.get('asset')
+        if asset:
+            return Transaction.objects.filter(user=self.request.user, asset=asset)
+        else:
+            return Transaction.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
         data = self.request.data
@@ -59,6 +63,15 @@ class TransactionApiView(ListCreateAPIView):
                 amount_crypto = 0
 
         serializer.save(amount_crypto=amount_crypto, user=self.request.user)
+
+
+# class AssetFilterApiView(ListCreateAPIView):
+#
+#     permission_classes = [IsAuthenticated]
+#     serializer_class = TransactionSerializer
+#
+#     def get_queryset(self):
+#         return Transaction.objects.filter(user=self.request.user, asset=self.request.GET.get('asset'))
 
 
 class TransactionDetailsApiView(RetrieveUpdateDestroyAPIView):
